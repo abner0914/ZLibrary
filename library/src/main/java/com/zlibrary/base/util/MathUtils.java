@@ -16,6 +16,9 @@
 
 package com.zlibrary.base.util;
 
+/**
+ * 计算工具类
+ */
 public class MathUtils {
 
     private MathUtils() {

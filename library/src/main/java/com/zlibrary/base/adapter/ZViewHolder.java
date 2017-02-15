@@ -12,7 +12,7 @@ import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ZLibrary.base.application.ZApplication;
+import com.zlibrary.base.application.ZApplication;
 
 /**
  * 类描述：通用的ViewHolder
@@ -136,7 +136,7 @@ public class ZViewHolder {
     }
 
     public ZViewHolder setChecked(int viewId, boolean checked) {
-        Checkable view = (Checkable) getView(viewId);
+        Checkable view = getView(viewId);
         view.setChecked(checked);
         return this;
     }

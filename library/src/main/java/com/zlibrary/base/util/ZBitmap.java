@@ -24,8 +24,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 
-import com.ZLibrary.base.application.ZApplication;
-import com.ZLibrary.base.exception.LException;
+import com.zlibrary.base.application.ZApplication;
+import com.zlibrary.base.exception.LException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -36,8 +36,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * @author Chen Lei
- * @version 1.1.5
+ * 图像处理工具类
  */
 public class ZBitmap {
     /**

@@ -11,8 +11,8 @@ import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 
-import com.ZLibrary.base.viewPagerIndicator.indicator.slidebar.ScrollBar;
-import com.ZLibrary.base.viewPagerIndicator.indicator.slidebar.ScrollBar.Gravity;
+import com.zlibrary.base.viewPagerIndicator.indicator.slidebar.ScrollBar;
+import com.zlibrary.base.viewPagerIndicator.indicator.slidebar.ScrollBar.Gravity;
 
 import java.util.LinkedList;
 import java.util.List;

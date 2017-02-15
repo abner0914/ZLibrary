@@ -1,6 +1,6 @@
 package com.zlibrary.base.handler;
 
-import com.ZLibrary.base.entity.ZMessage;
+import com.zlibrary.base.entity.ZMessage;
 
 public interface IZHandlerCallback {
 

@@ -18,7 +18,7 @@ package com.zlibrary.base.viewPagerIndicator.indicator;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ZLibrary.base.viewPagerIndicator.indicator.slidebar.ScrollBar;
+import com.zlibrary.base.viewPagerIndicator.indicator.slidebar.ScrollBar;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -34,46 +34,46 @@ public interface Indicator {
      *
      * @return
      */
-    public OnItemSelectedListener getOnItemSelectListener();
+    OnItemSelectedListener getOnItemSelectListener();
 
     /**
      * 设置选中监听
      *
      * @param onItemSelectedListener
      */
-    public void setOnItemSelectListener(OnItemSelectedListener onItemSelectedListener);
+    void setOnItemSelectListener(OnItemSelectedListener onItemSelectedListener);
 
-    public OnTransitionListener getOnTransitionListener();
+    OnTransitionListener getOnTransitionListener();
 
     /**
      * 设置滑动变化的转换监听，tab在切换过程中会调用此监听。<br>
      * 设置它可以自定义实现在滑动过程中，tab项的字体变化，颜色变化等等效果<br>
      * 目前提供的子类
-     * {@link com.ZLibrary.base.viewPagerIndicator.indicator.transition.OnTransitionTextListener}
+     * {@link com.zlibrary.base.viewPagerIndicator.indicator.transition.OnTransitionTextListener}
      *
      * @param onTransitionListener
      */
-    public void setOnTransitionListener(OnTransitionListener onTransitionListener);
+    void setOnTransitionListener(OnTransitionListener onTransitionListener);
 
     /**
      * 设置滑动块<br>
      * 设置它可以自定义滑动块的样式。<br>
-     * 目前提供的子类 {@link com.ZLibrary.base.viewPagerIndicator.indicator.slidebar.ColorBar}
-     * {@link com.ZLibrary.base.viewPagerIndicator.indicator.slidebar.DrawableBar}
-     * {@link com.ZLibrary.base.viewPagerIndicator.indicator.slidebar.LayoutBar}
+     * 目前提供的子类 {@link com.zlibrary.base.viewPagerIndicator.indicator.slidebar.ColorBar}
+     * {@link com.zlibrary.base.viewPagerIndicator.indicator.slidebar.DrawableBar}
+     * {@link com.zlibrary.base.viewPagerIndicator.indicator.slidebar.LayoutBar}
      *
      * @param scrollBar
      */
-    public void setScrollBar(ScrollBar scrollBar);
+    void setScrollBar(ScrollBar scrollBar);
 
-    public IndicatorAdapter getAdapter();
+    IndicatorAdapter getAdapter();
 
     /**
      * 设置适配器
      */
-    public void setAdapter(IndicatorAdapter adapter);
+    void setAdapter(IndicatorAdapter adapter);
 
-    public void setCurrentItem(int item, boolean anim);
+    void setCurrentItem(int item, boolean anim);
 
     /**
      * 获取每一项的tab
@@ -81,14 +81,14 @@ public interface Indicator {
      * @param item 索引
      * @return
      */
-    public View getItemView(int item);
+    View getItemView(int item);
 
     /**
      * 获取当前选中项
      *
      * @return
      */
-    public int getCurrentItem();
+    int getCurrentItem();
 
     /**
      * 设置当前项.<br>
@@ -96,14 +96,14 @@ public interface Indicator {
      *
      * @param item
      */
-    public void setCurrentItem(int item);
+    void setCurrentItem(int item);
 
     /**
      * 获取之前选中的项,可能返回-1，表示之前没有选中
      *
      * @return
      */
-    public int getPreSelectItem();
+    int getPreSelectItem();
 
     /**
      * ViewPager切换变化的函数
@@ -112,21 +112,21 @@ public interface Indicator {
      * @param positionOffset
      * @param positionOffsetPixels
      */
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
+    void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
 
     /**
      * @version 1.0 数据源观察者
      * @author试着飞
      * @date 2014年11月1日
      */
-    static interface DataSetObserver {
-        public void onChange();
+    interface DataSetObserver {
+        void onChange();
     }
 
     /**
      * tab项选中监听
      */
-    public static interface OnItemSelectedListener {
+    interface OnItemSelectedListener {
         /**
          * 注意 preItem 可能为 -1。表示之前没有选中过,每次adapter.notifyDataSetChanged也会将preItem
          * 设置为-1；
@@ -135,23 +135,23 @@ public interface Indicator {
          * @param select         当前选中项的索引
          * @param preSelect      之前选中项的索引
          */
-        public void onItemSelected(View selectItemView, int select, int preSelect);
+        void onItemSelected(View selectItemView, int select, int preSelect);
     }
 
     /**
      * tab滑动变化的转换监听，tab在切换过程中会调用此监听。<br>
      * 通过它可以自定义实现在滑动过程中，tab项的字体变化，颜色变化等等效果<br>
      * 目前提供的子类
-     * {@link com.ZLibrary.base.viewPagerIndicator.indicator.transition.OnTransitionTextListener}
+     * {@link com.zlibrary.base.viewPagerIndicator.indicator.transition.OnTransitionTextListener}
      */
-    public static interface OnTransitionListener {
-        public void onTransition(View view, int position, float selectPercent);
+    interface OnTransitionListener {
+        void onTransition(View view, int position, float selectPercent);
     }
 
     /**
      * 适配器
      */
-    public static abstract class IndicatorAdapter {
+    abstract class IndicatorAdapter {
         private Set<DataSetObserver> observers = new LinkedHashSet<DataSetObserver>(2);
 
         public abstract int getCount();

@@ -1,8 +1,7 @@
 package com.zlibrary.base.util;
 
 /**
- * @author MaTianyu
- * @date 2014-11-21
+ * 数字处理工具类
  */
 public class NumberUtils {
 

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
-import com.ZLibrary.base.viewPagerIndicator.indicator.slidebar.ScrollBar;
+import com.zlibrary.base.viewPagerIndicator.indicator.slidebar.ScrollBar;
 
 /**
  * @version 1.0 主要用于多个tab可以进行滑动

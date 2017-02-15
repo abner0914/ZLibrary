@@ -4,8 +4,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.ZLibrary.base.entity.ZMessage;
-import com.ZLibrary.base.handler.IZHandlerCallback;
+import com.zlibrary.base.entity.ZMessage;
+import com.zlibrary.base.handler.IZHandlerCallback;
 
 /**
  * service 封装

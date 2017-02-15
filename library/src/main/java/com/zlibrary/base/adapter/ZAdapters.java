@@ -2,7 +2,7 @@ package com.zlibrary.base.adapter;
 
 import android.content.Context;
 
-import com.ZLibrary.base.util.ListUtils;
+import com.zlibrary.base.util.ListUtils;
 
 import java.util.List;
 

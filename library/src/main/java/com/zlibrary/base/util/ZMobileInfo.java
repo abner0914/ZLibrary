@@ -3,7 +3,7 @@ package com.zlibrary.base.util;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
-import com.ZLibrary.base.application.ZApplication;
+import com.zlibrary.base.application.ZApplication;
 
 /**
  * 手机信息获取

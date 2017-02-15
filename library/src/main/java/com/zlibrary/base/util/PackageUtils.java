@@ -15,7 +15,7 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.ZLibrary.base.util.ShellUtils.CommandResult;
+import com.zlibrary.base.util.ShellUtils.CommandResult;
 
 import java.io.File;
 import java.util.List;

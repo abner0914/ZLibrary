@@ -6,8 +6,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
-import com.ZLibrary.base.viewPagerIndicator.indicator.Indicator.OnTransitionListener;
-import com.ZLibrary.base.viewPagerIndicator.utils.ColorGradient;
+import com.zlibrary.base.viewPagerIndicator.indicator.Indicator.OnTransitionListener;
+import com.zlibrary.base.viewPagerIndicator.utils.ColorGradient;
 
 /**
  * @author LuckyJayce

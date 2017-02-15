@@ -39,8 +39,6 @@ import android.graphics.Rect;
 
 /**
  * Class containing static utility methods for bitmap decoding and scaling
- *
- * @author Andreas Agvard (andreas.agvard@sonyericsson.com)
  */
 public class ScalingUtils {
 

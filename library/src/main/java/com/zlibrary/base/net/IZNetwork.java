@@ -1,6 +1,6 @@
 package com.zlibrary.base.net;
 
-import com.ZLibrary.base.entity.ZReqEntity;
+import com.zlibrary.base.entity.ZReqEntity;
 
 public interface IZNetwork {
 

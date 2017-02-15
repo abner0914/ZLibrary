@@ -5,7 +5,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.ZLibrary.base.application.ZApplication;
+import com.zlibrary.base.application.ZApplication;
 
 import java.util.List;
 

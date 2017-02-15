@@ -1,6 +1,6 @@
 package com.zlibrary.base.cache;
 
-import com.ZLibrary.base.application.ZApplication;
+import com.zlibrary.base.application.ZApplication;
 
 import java.util.HashMap;
 import java.util.LinkedList;

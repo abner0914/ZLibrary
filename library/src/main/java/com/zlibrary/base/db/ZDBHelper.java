@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 
-import com.ZLibrary.base.exception.LException;
-import com.ZLibrary.base.util.ZL;
+import com.zlibrary.base.exception.LException;
+import com.zlibrary.base.util.ZL;
 
 /**
  * 本地数据库管理类

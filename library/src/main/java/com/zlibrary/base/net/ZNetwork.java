@@ -2,8 +2,8 @@ package com.zlibrary.base.net;
 
 import android.util.SparseArray;
 
-import com.ZLibrary.base.entity.ZReqEntity;
-import com.ZLibrary.base.util.ZL;
+import com.zlibrary.base.entity.ZReqEntity;
+import com.zlibrary.base.util.ZL;
 
 public abstract class ZNetwork implements IZNetwork {
 

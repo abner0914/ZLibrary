@@ -10,8 +10,8 @@ import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.ZLibrary.base.application.ZApplication;
-import com.ZLibrary.base.widget.webview.ZWebViewClient;
+import com.zlibrary.base.application.ZApplication;
+import com.zlibrary.base.widget.webview.ZWebViewClient;
 
 import java.util.Map;
 

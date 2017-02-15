@@ -15,9 +15,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.ZLibrary.base.application.ZApplication;
-import com.ZLibrary.base.util.ZFormat;
+import com.zlibrary.base.application.ZApplication;
+import com.zlibrary.base.util.ZFormat;
 
+/**
+ * 等待框
+ */
 public class ZProgress extends Dialog implements DialogInterface.OnKeyListener {
 
     private static final int BACKGROUND_ALPHA = 150;

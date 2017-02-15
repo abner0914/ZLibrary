@@ -24,12 +24,12 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ZLibrary.base.viewPagerIndicator.indicator.Indicator.IndicatorAdapter;
-import com.ZLibrary.base.viewPagerIndicator.indicator.Indicator.OnItemSelectedListener;
-import com.ZLibrary.base.viewPagerIndicator.indicator.Indicator.OnTransitionListener;
-import com.ZLibrary.base.viewPagerIndicator.indicator.slidebar.ScrollBar;
-import com.ZLibrary.base.viewPagerIndicator.viewpager.RecyclingPagerAdapter;
-import com.ZLibrary.base.viewPagerIndicator.viewpager.SViewPager;
+import com.zlibrary.base.viewPagerIndicator.indicator.Indicator.IndicatorAdapter;
+import com.zlibrary.base.viewPagerIndicator.indicator.Indicator.OnItemSelectedListener;
+import com.zlibrary.base.viewPagerIndicator.indicator.Indicator.OnTransitionListener;
+import com.zlibrary.base.viewPagerIndicator.indicator.slidebar.ScrollBar;
+import com.zlibrary.base.viewPagerIndicator.viewpager.RecyclingPagerAdapter;
+import com.zlibrary.base.viewPagerIndicator.viewpager.SViewPager;
 
 /**
  * @version 1.0 将indicatorView，ViewPager联合使用
@@ -215,7 +215,7 @@ public class IndicatorViewPager {
     }
 
 
-    public static interface OnIndicatorPageChangeListener {
+    public interface OnIndicatorPageChangeListener {
         /**
          * 注意 preItem 可能为 -1。表示之前没有选中过,每次adapter.notifyDataSetChanged也会将preItem
          * 设置为-1；
@@ -223,10 +223,10 @@ public class IndicatorViewPager {
          * @param preItem
          * @param currentItem
          */
-        public void onIndicatorPageChange(int preItem, int currentItem);
+        void onIndicatorPageChange(int preItem, int currentItem);
     }
 
-    public static interface IndicatorPagerAdapter {
+    public interface IndicatorPagerAdapter {
 
         PagerAdapter getPagerAdapter();
 
@@ -395,7 +395,6 @@ public class IndicatorViewPager {
         public void notifyDataSetChanged() {
             indicatorAdapter.notifyDataSetChanged();
             pagerAdapter.notifyDataSetChanged();
-            ;
         }
 
         @Override

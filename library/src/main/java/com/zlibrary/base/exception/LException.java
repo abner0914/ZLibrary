@@ -1,14 +1,9 @@
 package com.zlibrary.base.exception;
 
-import com.ZLibrary.base.application.ZApplication;
-import com.ZLibrary.base.util.ZL;
+import com.zlibrary.base.application.ZApplication;
+import com.zlibrary.base.util.ZL;
 
-/**
- * 此类暂未正式使用
- *
- * @author Chen Lei
- * @version 1.3.1
- */
+
 public abstract class LException extends Exception implements IZException {
 
     /**

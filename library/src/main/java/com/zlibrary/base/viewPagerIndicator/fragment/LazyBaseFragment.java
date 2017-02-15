@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ZLibrary.base.activity.fragment.ZFragment;
+import com.zlibrary.base.activity.fragment.ZFragment;
 
 import java.lang.reflect.Field;
 
@@ -50,7 +50,7 @@ public class LazyBaseFragment extends ZFragment {
     }
 
     public void setContentView(int layoutResID) {
-        setContentView((ViewGroup) inflater.inflate(layoutResID, container, false));
+        setContentView(inflater.inflate(layoutResID, container, false));
     }
 
     public View getContentView() {

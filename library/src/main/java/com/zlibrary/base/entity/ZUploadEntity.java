@@ -4,8 +4,6 @@ import java.io.File;
 
 /**
  * 上传图片使用
- *
- * @author yutf
  */
 public class ZUploadEntity {
     private File file;
