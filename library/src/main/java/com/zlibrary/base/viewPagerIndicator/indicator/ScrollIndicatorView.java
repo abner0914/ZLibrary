@@ -1,23 +1,41 @@
 package com.zlibrary.base.viewPagerIndicator.indicator;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
+import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 
 import com.zlibrary.base.viewPagerIndicator.indicator.slidebar.ScrollBar;
+import com.zlibrary.base.viewPagerIndicator.indicator.slidebar.ScrollBar.Gravity;
 
 /**
- * @version 1.0 主要用于多个tab可以进行滑动
- * @author试着飞
- * @date 2014年11月1日
+ * 主要用于多个tab可以进行滑动
  */
 public class ScrollIndicatorView extends HorizontalScrollView implements Indicator {
+    private final ProxyOnItemSelectListener proxyOnItemSelectListener;
     private SFixedIndicatorView fixedIndicatorView;
+    private boolean isPinnedTabView = false;
+    private Paint defaultShadowPaint = null;
+    private Drawable customShadowDrawable;
+    private int shadowWidth;
+    private int state = ViewPager.SCROLL_STATE_IDLE;
+    private Drawable pinnedTabBgDrawable;
     private Runnable mTabSelector;
+    private View pinnedTabView;
+    private boolean mActionDownHappened;
     private int unScrollPosition = -1;
     private float positionOffset;
     private DataSetObserver dataSetObserver = new DataSetObserver() {
@@ -29,15 +47,31 @@ public class ScrollIndicatorView extends HorizontalScrollView implements Indicat
             }
             positionOffset = 0;
             setCurrentItem(fixedIndicatorView.getCurrentItem(), false);
+            if (isPinnedTabView) {
+                if (fixedIndicatorView.getChildCount() > 0) {
+                    pinnedTabView = fixedIndicatorView.getChildAt(0);
+                }
+            }
         }
     };
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public ScrollIndicatorView(Context context, AttributeSet attrs) {
         super(context, attrs);
         fixedIndicatorView = new SFixedIndicatorView(context);
         addView(fixedIndicatorView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
         setHorizontalScrollBarEnabled(false);
         setSplitAuto(true);
+
+        defaultShadowPaint = new Paint();
+        defaultShadowPaint.setAntiAlias(true);
+        defaultShadowPaint.setColor(0x33AAAAAA);
+        shadowWidth = dipToPix(3);
+        defaultShadowPaint.setShadowLayer(shadowWidth, 0, 0, 0xFF000000);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
+        fixedIndicatorView.setOnItemSelectListener(proxyOnItemSelectListener = new ProxyOnItemSelectListener());
     }
 
     public boolean isSplitAuto() {
@@ -50,17 +84,51 @@ public class ScrollIndicatorView extends HorizontalScrollView implements Indicat
     }
 
     @Override
-    public IndicatorAdapter getAdapter() {
-        return fixedIndicatorView.getAdapter();
-    }
-
-    @Override
     public void setAdapter(IndicatorAdapter adapter) {
-        if (getAdapter() != null) {
-            getAdapter().unRegistDataSetObserver(dataSetObserver);
+        if (getIndicatorAdapter() != null) {
+            getIndicatorAdapter().unRegistDataSetObserver(dataSetObserver);
         }
         fixedIndicatorView.setAdapter(adapter);
         adapter.registDataSetObserver(dataSetObserver);
+        dataSetObserver.onChange();
+    }
+
+    @Override
+    public IndicatorAdapter getIndicatorAdapter() {
+        return fixedIndicatorView.getIndicatorAdapter();
+    }
+
+    public void setPinnedTabView(boolean isPinnedTabView) {
+        this.isPinnedTabView = isPinnedTabView;
+        if (isPinnedTabView) {
+            if (fixedIndicatorView.getChildCount() > 0) {
+                pinnedTabView = fixedIndicatorView.getChildAt(0);
+            }
+        }
+        ViewCompat.postInvalidateOnAnimation(this);
+    }
+
+    public void setPinnedShadow(Drawable shadowDrawable, int shadowWidth) {
+        this.customShadowDrawable = shadowDrawable;
+        this.shadowWidth = shadowWidth;
+        ViewCompat.postInvalidateOnAnimation(this);
+    }
+
+    public void setPinnedTabBg(Drawable pinnedTabBgDrawable) {
+        this.pinnedTabBgDrawable = pinnedTabBgDrawable;
+        ViewCompat.postInvalidateOnAnimation(this);
+    }
+
+    public void setPinnedTabBgColor(int color) {
+        setPinnedTabBg(new ColorDrawable(color));
+    }
+
+    public void setPinnedTabBgId(int pinnedTabBgDrawableId) {
+        setPinnedTabBg(ContextCompat.getDrawable(getContext(), pinnedTabBgDrawableId));
+    }
+
+    public void setPinnedShadow(int shadowDrawableId, int shadowWidth) {
+        setPinnedShadow(ContextCompat.getDrawable(getContext(), shadowDrawableId), shadowWidth);
     }
 
     @Override
@@ -132,20 +200,41 @@ public class ScrollIndicatorView extends HorizontalScrollView implements Indicat
             item = count - 1;
         }
         unScrollPosition = -1;
-        if (positionOffset < 0.02f || positionOffset > 0.98f) {
+        if (state == ViewPager.SCROLL_STATE_IDLE) {
             if (anim) {
                 animateToTab(item);
             } else {
                 final View tabView = fixedIndicatorView.getChildAt(item);
                 final int scrollPos = tabView.getLeft() - (getWidth() - tabView.getWidth()) / 2;
-                if (scrollPos >= 0) {
-                    scrollTo(scrollPos, 0);
-                } else {
-                    unScrollPosition = item;
-                }
+                scrollTo(scrollPos, 0);
+                unScrollPosition = item;
             }
+        } else {
+
         }
         fixedIndicatorView.setCurrentItem(item, anim);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (isPinnedTabView) {
+            float x = ev.getX();
+            float y = ev.getY();
+            if (pinnedTabView != null && y >= pinnedTabView.getTop() && y <= pinnedTabView.getBottom() && x > pinnedTabView.getLeft()
+                    && x < pinnedTabView.getRight()) {
+                if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+                    mActionDownHappened = true;
+                } else if (ev.getAction() == MotionEvent.ACTION_UP) {
+                    if (mActionDownHappened) {
+                        pinnedTabView.performClick();
+                        invalidate(new Rect(0, 0, pinnedTabView.getMeasuredWidth(), pinnedTabView.getMeasuredHeight()));
+                        mActionDownHappened = false;
+                    }
+                }
+                return true;
+            }
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override
@@ -160,12 +249,12 @@ public class ScrollIndicatorView extends HorizontalScrollView implements Indicat
 
     @Override
     public OnItemSelectedListener getOnItemSelectListener() {
-        return fixedIndicatorView.getOnItemSelectListener();
+        return proxyOnItemSelectListener.getOnItemSelectedListener();
     }
 
     @Override
     public void setOnItemSelectListener(OnItemSelectedListener onItemSelectedListener) {
-        fixedIndicatorView.setOnItemSelectListener(onItemSelectedListener);
+        proxyOnItemSelectListener.setOnItemSelectedListener(onItemSelectedListener);
     }
 
     @Override
@@ -193,10 +282,27 @@ public class ScrollIndicatorView extends HorizontalScrollView implements Indicat
         final View tabView2 = fixedIndicatorView.getChildAt(position + 1);
         float offset = (tabView.getWidth() + (tabView2 == null ? tabView.getWidth() : tabView2.getWidth())) / 2 * positionOffset;
         final int scrollPos = (int) (tabView.getLeft() - (getWidth() - tabView.getWidth()) / 2 + offset);
-        if (scrollPos >= 0) {
-            scrollTo(scrollPos, 0);
-        }
+        scrollTo(scrollPos, 0);
         fixedIndicatorView.onPageScrolled(position, positionOffset, positionOffsetPixels);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        this.state = state;
+        fixedIndicatorView.onPageScrollStateChanged(state);
+//		if (state == ViewPager.SCROLL_STATE_IDLE) {
+//			onPageScrolled(getCurrentItem(), 0, 0);
+//		}
+    }
+
+    @Override
+    public boolean isItemClickable() {
+        return fixedIndicatorView.isItemClickable();
+    }
+
+    @Override
+    public void setItemClickable(boolean clickable) {
+        fixedIndicatorView.setItemClickable(clickable);
     }
 
     @Override
@@ -207,6 +313,96 @@ public class ScrollIndicatorView extends HorizontalScrollView implements Indicat
     @Override
     public View getItemView(int item) {
         return fixedIndicatorView.getItemView(item);
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+        if (isPinnedTabView) {
+            int scrollX = getScrollX();
+            if (pinnedTabView != null && scrollX > 0) {
+                int saveCount = canvas.save();
+
+                // 绘制固定在开始位置的pinnedTabView
+                canvas.translate(scrollX + getPaddingLeft(), getPaddingTop());
+
+                if (pinnedTabBgDrawable != null) {
+                    pinnedTabBgDrawable.setBounds(0, 0, pinnedTabView.getWidth(), pinnedTabView.getHeight());
+                    pinnedTabBgDrawable.draw(canvas);
+                }
+
+                ScrollBar scrollBar = fixedIndicatorView.getScrollBar();
+                if (scrollBar != null && scrollBar.getGravity() == Gravity.CENTENT_BACKGROUND) {
+                    drawScrollBar(canvas);
+                }
+                pinnedTabView.draw(canvas);
+                if (scrollBar != null && scrollBar.getGravity() != Gravity.CENTENT_BACKGROUND) {
+                    drawScrollBar(canvas);
+                }
+
+                int x = pinnedTabView.getWidth();
+                // pinnedTabView的分割绘制阴影
+                canvas.translate(x, 0);
+                int shadowHeight = getHeight() - getPaddingTop() - getPaddingBottom();
+                if (customShadowDrawable != null) {
+                    customShadowDrawable.setBounds(0, 0, shadowWidth, shadowHeight);
+                    customShadowDrawable.draw(canvas);
+                } else {
+                    canvas.clipRect(0, 0, shadowWidth + dipToPix(1), shadowHeight);
+                    canvas.drawRect(0, 0, dipToPix(1), shadowHeight, defaultShadowPaint);
+                }
+
+                canvas.restoreToCount(saveCount);
+            }
+        }
+    }
+
+    private void drawScrollBar(Canvas canvas) {
+        ScrollBar scrollBar = fixedIndicatorView.getScrollBar();
+        // 如果scrollBar不为空，且刚好选中的是第一个的时候需要在这里重新绘制scrollBar，因为原先fixedIndicatorView回执的scrollBar被遮挡了
+        if (scrollBar != null && fixedIndicatorView.getCurrentItem() == 0) {
+            int drawScrollBarCount = canvas.save();
+
+            int offsetY = 0;
+            switch (scrollBar.getGravity()) {
+                case CENTENT_BACKGROUND:
+                case CENTENT:
+                    offsetY = (getHeight() - scrollBar.getHeight(getHeight())) / 2;
+                    break;
+                case TOP:
+                case TOP_FLOAT:
+                    offsetY = 0;
+                    break;
+                case BOTTOM:
+                case BOTTOM_FLOAT:
+                default:
+                    offsetY = getHeight() - scrollBar.getHeight(getHeight());
+                    break;
+            }
+            int scrollBarWidth = scrollBar.getWidth(pinnedTabView.getWidth());
+            int scrollBarHeight = scrollBar.getHeight(pinnedTabView.getHeight());
+            scrollBar.getSlideView().measure(scrollBarWidth, scrollBarHeight);
+            scrollBar.getSlideView().layout(0, 0, scrollBarWidth, scrollBarHeight);
+
+            int offsetX = (pinnedTabView.getWidth() - scrollBarWidth) / 2;
+
+            canvas.translate(offsetX, offsetY);
+            canvas.clipRect(0, 0, scrollBarWidth, scrollBarHeight); // needed
+            scrollBar.getSlideView().draw(canvas);
+
+            canvas.restoreToCount(drawScrollBarCount);
+        }
+    }
+
+    /**
+     * 根据dip值转化成px值
+     *
+     * @param dip
+     * @return
+     */
+    private int dipToPix(float dip) {
+        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, getResources().getDisplayMetrics());
+        return size;
     }
 
     private static class SFixedIndicatorView extends FixedIndicatorView {
@@ -234,7 +430,6 @@ public class ScrollIndicatorView extends HorizontalScrollView implements Indicat
 
         @Override
         protected void onMeasure(int widthSpec, int heightSpec) {
-            Log.d("pppp", "onMeasure start: layoutWidth " + ((ScrollIndicatorView) getParent()).getMeasuredWidth());
             if (isAutoSplit) {
                 ScrollIndicatorView group = (ScrollIndicatorView) getParent();
                 int layoutWidth = group.getMeasuredWidth();
@@ -247,8 +442,6 @@ public class ScrollIndicatorView extends HorizontalScrollView implements Indicat
                         maxCellWidth = maxCellWidth < width ? width : maxCellWidth;
                         totalWidth += width;
                     }
-                    Log.d("pppp", "onMeasure: layoutWidth" + layoutWidth + " totalWidth:" + totalWidth + " maxCellWidth * count:" + maxCellWidth
-                            * count);
                     if (totalWidth > layoutWidth) {
                         group.setFillViewport(false);
                         setSplitMethod(SPLITMETHOD_WRAP);
@@ -265,7 +458,7 @@ public class ScrollIndicatorView extends HorizontalScrollView implements Indicat
         }
 
         private int measureChildWidth(View view, int widthSpec, int heightSpec) {
-            LinearLayout.LayoutParams p = (LinearLayout.LayoutParams) view.getLayoutParams();
+            LayoutParams p = (LayoutParams) view.getLayoutParams();
             int childWidthSpec = ViewGroup.getChildMeasureSpec(widthSpec, getPaddingLeft() + getPaddingRight(), LayoutParams.WRAP_CONTENT);
             int childHeightSpec = ViewGroup.getChildMeasureSpec(heightSpec, getPaddingTop() + getPaddingBottom(), p.height);
             view.measure(childWidthSpec, childHeightSpec);
@@ -273,4 +466,28 @@ public class ScrollIndicatorView extends HorizontalScrollView implements Indicat
         }
 
     }
+
+    private class ProxyOnItemSelectListener implements OnItemSelectedListener {
+        private OnItemSelectedListener onItemSelectedListener;
+
+        public OnItemSelectedListener getOnItemSelectedListener() {
+            return onItemSelectedListener;
+        }
+
+        public void setOnItemSelectedListener(OnItemSelectedListener onItemSelectedListener) {
+            this.onItemSelectedListener = onItemSelectedListener;
+        }
+
+        @Override
+        public void onItemSelected(View selectItemView, int select, int preSelect) {
+            if (state == ViewPager.SCROLL_STATE_IDLE) {
+                animateToTab(select);
+            }
+            if (onItemSelectedListener != null) {
+                onItemSelectedListener.onItemSelected(selectItemView, select, preSelect);
+            }
+        }
+    }
+
 }
+

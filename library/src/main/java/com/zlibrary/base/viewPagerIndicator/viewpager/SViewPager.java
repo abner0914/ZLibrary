@@ -7,14 +7,16 @@ import android.view.MotionEvent;
 
 public class SViewPager extends ViewPager {
 
-    private boolean canScroll=true;
+    private boolean canScroll;
 
     public SViewPager(Context context) {
         super(context);
+        canScroll = false;
     }
 
     public SViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
+        canScroll = false;
     }
 
     @Override

@@ -11,7 +11,7 @@ public interface ScrollBar {
      *
      * @return
      */
-    public int getHeight(int tabHeight);
+    int getHeight(int tabHeight);
 
     /**
      * SlideView 显示的宽度
@@ -19,33 +19,28 @@ public interface ScrollBar {
      * @param tabWidth
      * @return
      */
-    public int getWidth(int tabWidth);
+    int getWidth(int tabWidth);
 
     /**
      * 滑动显示的view
      *
      * @return
      */
-    public View getSlideView();
+    View getSlideView();
 
     /**
      * 位置
      *
      * @return
      */
-    public Gravity getGravity();
+    Gravity getGravity();
 
     /**
      * 当page滑动的时候调用
-     *
-     * @param selectView
-     * @param unSelectView
-     * @param position
-     * @param positionOffset
      */
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
+    void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
 
-    public static enum Gravity {
+    enum Gravity {
         /**
          * 顶部占位
          */

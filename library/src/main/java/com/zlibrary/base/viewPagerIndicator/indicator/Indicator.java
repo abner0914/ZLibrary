@@ -24,15 +24,18 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * @version 1.0 指示器
- * @author试着飞
- * @date 2014年11月1日
+ * 指示器
  */
 public interface Indicator {
     /**
+     * 设置适配器
+     */
+    void setAdapter(IndicatorAdapter adapter);
+
+    /**
      * 获取选中监听
      *
-     * @return
+     * @return OnItemSelectedListener
      */
     OnItemSelectedListener getOnItemSelectListener();
 
@@ -48,9 +51,6 @@ public interface Indicator {
     /**
      * 设置滑动变化的转换监听，tab在切换过程中会调用此监听。<br>
      * 设置它可以自定义实现在滑动过程中，tab项的字体变化，颜色变化等等效果<br>
-     * 目前提供的子类
-     * {@link com.zlibrary.base.viewPagerIndicator.indicator.transition.OnTransitionTextListener}
-     *
      * @param onTransitionListener
      */
     void setOnTransitionListener(OnTransitionListener onTransitionListener);
@@ -58,20 +58,11 @@ public interface Indicator {
     /**
      * 设置滑动块<br>
      * 设置它可以自定义滑动块的样式。<br>
-     * 目前提供的子类 {@link com.zlibrary.base.viewPagerIndicator.indicator.slidebar.ColorBar}
-     * {@link com.zlibrary.base.viewPagerIndicator.indicator.slidebar.DrawableBar}
-     * {@link com.zlibrary.base.viewPagerIndicator.indicator.slidebar.LayoutBar}
-     *
      * @param scrollBar
      */
     void setScrollBar(ScrollBar scrollBar);
 
-    IndicatorAdapter getAdapter();
-
-    /**
-     * 设置适配器
-     */
-    void setAdapter(IndicatorAdapter adapter);
+    IndicatorAdapter getIndicatorAdapter();
 
     void setCurrentItem(int item, boolean anim);
 
@@ -79,14 +70,14 @@ public interface Indicator {
      * 获取每一项的tab
      *
      * @param item 索引
-     * @return
+     * @return ItemView
      */
     View getItemView(int item);
 
     /**
      * 获取当前选中项
      *
-     * @return
+     * @return current
      */
     int getCurrentItem();
 
@@ -101,7 +92,7 @@ public interface Indicator {
     /**
      * 获取之前选中的项,可能返回-1，表示之前没有选中
      *
-     * @return
+     * @return PreSelectItem
      */
     int getPreSelectItem();
 
@@ -114,10 +105,14 @@ public interface Indicator {
      */
     void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
 
+    void onPageScrollStateChanged(int state);
+
+    boolean isItemClickable();
+
+    void setItemClickable(boolean clickable);
+
     /**
-     * @version 1.0 数据源观察者
-     * @author试着飞
-     * @date 2014年11月1日
+     * 数据源观察者
      */
     interface DataSetObserver {
         void onChange();
@@ -142,7 +137,6 @@ public interface Indicator {
      * tab滑动变化的转换监听，tab在切换过程中会调用此监听。<br>
      * 通过它可以自定义实现在滑动过程中，tab项的字体变化，颜色变化等等效果<br>
      * 目前提供的子类
-     * {@link com.zlibrary.base.viewPagerIndicator.indicator.transition.OnTransitionTextListener}
      */
     interface OnTransitionListener {
         void onTransition(View view, int position, float selectPercent);
@@ -152,7 +146,16 @@ public interface Indicator {
      * 适配器
      */
     abstract class IndicatorAdapter {
+        private boolean isLoop;
         private Set<DataSetObserver> observers = new LinkedHashSet<DataSetObserver>(2);
+
+        boolean isLoop() {
+            return isLoop;
+        }
+
+        void setIsLoop(boolean isLoop) {
+            this.isLoop = isLoop;
+        }
 
         public abstract int getCount();
 
@@ -174,3 +177,4 @@ public interface Indicator {
 
     }
 }
+

@@ -74,7 +74,7 @@ public class SpringBar extends View implements ScrollBar {
         if (positionOffset < 0.02f || positionOffset > 0.98f) {
             onPageScrolled(0, 0, 0);
         }
-        return tabWidth + tabWidth / 2;
+        return 2 * tabWidth;
     }
 
     @Override
@@ -127,7 +127,7 @@ public class SpringBar extends View implements ScrollBar {
     }
 
     private float getOffsetX(float positionOffset) {
-        return tabWidth + tabWidth / 2 - tabWidth * (1 - positionOffset) + tabWidth / 4.0f;
+        return 2 * tabWidth - tabWidth / 4 - tabWidth * (1 - positionOffset) + tabWidth / 4.0f;
     }
 
     private float getPositionDistance(int position) {
