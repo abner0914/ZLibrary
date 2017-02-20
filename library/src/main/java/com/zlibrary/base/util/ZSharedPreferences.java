@@ -7,11 +7,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-public class ZSP {
+public class ZSharedPreferences {
     private String fileName;
     private Context context;
 
-    public ZSP(Context context, String fileName) {
+    public ZSharedPreferences(Context context, String fileName) {
         this.context = context;
         this.fileName = fileName;
     }
