@@ -12,10 +12,10 @@ import com.zlibrary.base.entity.ZReqMothed;
 import com.zlibrary.base.entity.ZUploadEntity;
 import com.zlibrary.base.exception.LException;
 import com.zlibrary.base.net.ZDownload.LDownloadStoppingEntity;
-import com.zlibrary.base.util.MD5Utils;
 import com.zlibrary.base.util.ZDate;
 import com.zlibrary.base.util.ZFormat;
 import com.zlibrary.base.util.ZL;
+import com.zlibrary.base.util.ZMD5;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -192,7 +192,7 @@ public class ZCaller {
         //AccessToken+CommandId+Time_Stamp
         String timeStamp = ZDate.formatDate2String(new Date(), "MMddHHmmss");
         String checkSource = String.format("%s%d%s", entity.getToken(), entity.getCommandId(), timeStamp);
-        writeString(dous, MD5Utils.getMD5(checkSource), 32);
+        writeString(dous, ZMD5.getMD5(checkSource), 32);
         writeString(dous, timeStamp, 10);
         dous.writeByte(0);  //0未压缩   1压缩
         dous.writeByte(entity.getClientType());  //客户端类型   android:3  ios：4

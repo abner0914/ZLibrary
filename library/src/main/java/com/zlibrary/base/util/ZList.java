@@ -8,14 +8,14 @@ import java.util.List;
 /**
  * List 工具类
  */
-public class ListUtils {
+public class ZList {
 
     /**
      * default join separator
      **/
     public static final String DEFAULT_JOIN_SEPARATOR = ",";
 
-    private ListUtils() {
+    private ZList() {
         throw new AssertionError();
     }
 
@@ -80,7 +80,7 @@ public class ListUtils {
         }
 
         for (int i = 0; i < actual.size(); i++) {
-            if (!ObjectUtils.isEquals(actual.get(i), expected.get(i))) {
+            if (!ZObject.isEquals(actual.get(i), expected.get(i))) {
                 return false;
             }
         }
@@ -150,7 +150,7 @@ public class ListUtils {
      * @return if entry already exist in sourceList, return false, else add it and return true.
      */
     public static <V> boolean addDistinctEntry(List<V> sourceList, V entry) {
-        return (sourceList != null && !sourceList.contains(entry)) ? sourceList.add(entry) : false;
+        return (sourceList != null && !sourceList.contains(entry)) && sourceList.add(entry);
     }
 
     /**
@@ -213,23 +213,23 @@ public class ListUtils {
      * </ul>
      */
     public static <V> boolean addListNotNullValue(List<V> sourceList, V value) {
-        return (sourceList != null && value != null) ? sourceList.add(value) : false;
+        return (sourceList != null && value != null) && sourceList.add(value);
     }
 
     /**
-     * @see {@link ArrayUtils#getLast(Object[], Object, Object, boolean)} defaultValue is null, isCircle is true
+     * @see {@link ZArray#getLast(Object[], Object, Object, boolean)} defaultValue is null, isCircle is true
      */
     @SuppressWarnings("unchecked")
     public static <V> V getLast(List<V> sourceList, V value) {
-        return (sourceList == null) ? null : (V) ArrayUtils.getLast(sourceList.toArray(), value, true);
+        return (sourceList == null) ? null : (V) ZArray.getLast(sourceList.toArray(), value, true);
     }
 
     /**
-     * @see {@link ArrayUtils#getNext(Object[], Object, Object, boolean)} defaultValue is null, isCircle is true
+     * @see {@link ZArray#getNext(Object[], Object, Object, boolean)} defaultValue is null, isCircle is true
      */
     @SuppressWarnings("unchecked")
     public static <V> V getNext(List<V> sourceList, V value) {
-        return (sourceList == null) ? null : (V) ArrayUtils.getNext(sourceList.toArray(), value, true);
+        return (sourceList == null) ? null : (V) ZArray.getNext(sourceList.toArray(), value, true);
     }
 
     /**

@@ -18,4 +18,8 @@ public class ZConfig {
      */
     public static final int REQUEST_TIMEOUT = 20 * 1000;
 
+    /**
+     * 日志文件存放目录
+     */
+    public static final String CRASH_CACHE = "CrashCache";
 }

@@ -40,7 +40,7 @@ import android.graphics.Rect;
 /**
  * Class containing static utility methods for bitmap decoding and scaling
  */
-public class ScalingUtils {
+public class ZScaling {
 
     /**
      * Utility function for decoding an image resource. The decoded bitmap will

@@ -15,7 +15,7 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.zlibrary.base.util.ShellUtils.CommandResult;
+import com.zlibrary.base.util.ZShell.CommandResult;
 
 import java.io.File;
 import java.util.List;
@@ -288,7 +288,7 @@ public class PackageUtils {
      * @return
      */
     public static final int install(Context context, String filePath) {
-        if (PackageUtils.isSystemApplication(context) || ShellUtils.checkRootPermission()) {
+        if (PackageUtils.isSystemApplication(context) || ZShell.checkRootPermission()) {
             return installSilent(context, filePath);
         }
         return installNormal(context, filePath) ? INSTALL_SUCCEEDED : INSTALL_FAILED_INVALID_URI;
@@ -365,7 +365,7 @@ public class PackageUtils {
          **/
         StringBuilder command = new StringBuilder().append("LD_LIBRARY_PATH=/vendor/lib:/system/lib pm install ")
                 .append(pmParams == null ? "" : pmParams).append(" ").append(filePath.replace(" ", "\\ "));
-        CommandResult commandResult = ShellUtils.execCommand(command.toString(), !isSystemApplication(context), true);
+        CommandResult commandResult = ZShell.execCommand(command.toString(), !isSystemApplication(context), true);
         if (commandResult.successMsg != null
                 && (commandResult.successMsg.contains("Success") || commandResult.successMsg.contains("success"))) {
             return INSTALL_SUCCEEDED;
@@ -497,7 +497,7 @@ public class PackageUtils {
      * @return
      */
     public static final int uninstall(Context context, String packageName) {
-        if (PackageUtils.isSystemApplication(context) || ShellUtils.checkRootPermission()) {
+        if (PackageUtils.isSystemApplication(context) || ZShell.checkRootPermission()) {
             return uninstallSilent(context, packageName);
         }
         return uninstallNormal(context, packageName) ? DELETE_SUCCEEDED : DELETE_FAILED_INVALID_PACKAGE;
@@ -563,7 +563,7 @@ public class PackageUtils {
          **/
         StringBuilder command = new StringBuilder().append("LD_LIBRARY_PATH=/vendor/lib:/system/lib pm uninstall")
                 .append(isKeepData ? " -k " : " ").append(packageName.replace(" ", "\\ "));
-        CommandResult commandResult = ShellUtils.execCommand(command.toString(), !isSystemApplication(context), true);
+        CommandResult commandResult = ZShell.execCommand(command.toString(), !isSystemApplication(context), true);
         if (commandResult.successMsg != null
                 && (commandResult.successMsg.contains("Success") || commandResult.successMsg.contains("success"))) {
             return DELETE_SUCCEEDED;
@@ -774,7 +774,7 @@ public class PackageUtils {
      * @return
      */
     public static int getInstallLocation() {
-        CommandResult commandResult = ShellUtils.execCommand(
+        CommandResult commandResult = ZShell.execCommand(
                 "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm get-install-location", false, true);
         if (commandResult.result == 0 && commandResult.successMsg != null && commandResult.successMsg.length() > 0) {
             try {

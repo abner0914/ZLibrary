@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zlibrary.base.activity.fragment.ZFragment;
+import com.zlibrary.base.fragment.ZFragment;
 
 import java.lang.reflect.Field;
 

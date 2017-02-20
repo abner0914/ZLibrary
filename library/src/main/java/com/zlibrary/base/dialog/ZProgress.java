@@ -15,8 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.zlibrary.base.application.ZApplication;
 import com.zlibrary.base.util.ZFormat;
+import com.zlibrary.base.util.ZScreen;
 
 /**
  * 等待框
@@ -36,7 +36,7 @@ public class ZProgress extends Dialog implements DialogInterface.OnKeyListener {
     public ZProgress(Context context) {
         super(context);
         mContext = context;
-        width = ZApplication.getInstance().getDiaplayWidth() / 12 * 2;
+        width = ZScreen.getScreenWidth(context) / 12 * 2;
         height = width;
         padding10 = ZFormat.dip2px(mContext, 10);
         requestWindowFeature(Window.FEATURE_NO_TITLE);

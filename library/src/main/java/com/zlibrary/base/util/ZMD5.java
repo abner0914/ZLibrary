@@ -8,9 +8,9 @@ import java.security.MessageDigest;
 /**
  * MD5加密工具类
  */
-public final class MD5Utils {
+public final class ZMD5 {
 
-    private MD5Utils() {
+    private ZMD5() {
     }
 
     public static String getMD5(String content) {

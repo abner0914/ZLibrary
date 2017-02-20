@@ -3,9 +3,9 @@ package com.zlibrary.base.util;
 /**
  * Object Utils
  */
-public class ObjectUtils {
+public class ZObject {
 
-    private ObjectUtils() {
+    private ZObject() {
         throw new AssertionError();
     }
 

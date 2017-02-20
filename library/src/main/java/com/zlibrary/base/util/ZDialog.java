@@ -9,7 +9,7 @@ import android.view.View;
 /**
  * 对话框工具类
  */
-public class DialogUtils {
+public class ZDialog {
 
     public static AlertDialog.Builder dialogBuilder(Context context, String title, String msg) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -40,7 +40,7 @@ public class DialogUtils {
     }
 
     public static Dialog showTips(Context context, String title, String des) {
-        AlertDialog.Builder builder = DialogUtils.dialogBuilder(context, title, des);
+        AlertDialog.Builder builder = ZDialog.dialogBuilder(context, title, des);
         builder.setCancelable(true);
         Dialog dialog = builder.show();
         dialog.setCanceledOnTouchOutside(false);
@@ -52,7 +52,7 @@ public class DialogUtils {
     }
 
     public static Dialog showTipsWithBtn(Context context, String title, String des) {
-        AlertDialog.Builder builder = DialogUtils.dialogBuilder(context, title, des);
+        AlertDialog.Builder builder = ZDialog.dialogBuilder(context, title, des);
         builder.setPositiveButton("确定", null);
         builder.setCancelable(true);
         Dialog dialog = builder.show();

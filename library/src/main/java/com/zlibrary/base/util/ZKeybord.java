@@ -8,7 +8,7 @@ import android.widget.EditText;
 /**
  * 键盘操作工具类
  */
-public class KeybordUtils {
+public class ZKeybord {
 
     /**
      * 是否影藏输入法

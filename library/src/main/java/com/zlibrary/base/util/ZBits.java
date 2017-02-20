@@ -3,7 +3,7 @@ package com.zlibrary.base.util;
 /**
  * 位运算 工具类
  */
-public class BitUtils {
+public class ZBits {
 
     /**
      * 设置指定位

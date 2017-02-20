@@ -19,8 +19,8 @@ import java.util.ArrayList;
 /**
  * 通知栏工具类
  */
-public class NotificationUtil {
-    private static final String TAG = NotificationUtil.class.getSimpleName();
+public class ZNotification {
+    private static final String TAG = ZNotification.class.getSimpleName();
     private static int LedID = 0;
 
     public static void notification(Context context, int icon, String ticker, String title, String msg, Uri uri) {

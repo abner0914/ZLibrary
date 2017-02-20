@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.zlibrary.base.activity.ZActivity;
-import com.zlibrary.base.activity.fragment.ZFragment;
 import com.zlibrary.base.adapter.ZBaseAdapter;
 import com.zlibrary.base.application.ZApplication;
 import com.zlibrary.base.entity.ZMessage;
 import com.zlibrary.base.entity.ZReqEntity;
+import com.zlibrary.base.fragment.ZFragment;
 import com.zlibrary.base.net.IZNetwork;
 import com.zlibrary.base.net.IZNetworkCallback;
 import com.zlibrary.base.service.ZService;

@@ -204,7 +204,7 @@ public class ZFormat {
      * @return
      */
     public static String getMD5Url(String url) {
-        return MD5Utils.getMD5(url) + url.substring(url.lastIndexOf('.'));
+        return ZMD5.getMD5(url) + url.substring(url.lastIndexOf('.'));
     }
 
     /**

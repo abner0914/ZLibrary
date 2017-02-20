@@ -12,9 +12,9 @@ import android.view.WindowManager;
 /**
  * ScreenUtils
  */
-public class ScreenUtils {
+public class ZScreen {
 
-    private ScreenUtils() {
+    private ZScreen() {
         throw new AssertionError();
     }
 

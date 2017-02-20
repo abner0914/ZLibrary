@@ -7,11 +7,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-public class SPUtils {
+public class ZSP {
     private String fileName;
     private Context context;
 
-    public SPUtils(Context context, String fileName) {
+    public ZSP(Context context, String fileName) {
         this.context = context;
         this.fileName = fileName;
     }

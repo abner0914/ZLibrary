@@ -5,11 +5,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.view.Display;
-import android.view.WindowManager;
 
 import com.orhanobut.logger.Logger;
-import com.zlibrary.base.activity.ZActivity;
 import com.zlibrary.base.db.ZDBHelper;
 
 import java.io.File;
@@ -395,37 +392,6 @@ public class ZApplication extends Application {
         this.SessionValue = sessionValue;
     }
 
-    /**
-     * 获取屏幕宽度
-     *
-     * @return
-     */
-    public int getDiaplayWidth() {
-        if (mDiaplayWidth <= 0) {
-            computeDiaplayWidthAndHeight();
-        }
-        return mDiaplayWidth;
-    }
-
-    /**
-     * 获取屏幕高度
-     *
-     * @return
-     */
-    public int getDiaplayHeight() {
-        if (mDiaplayHeight <= 0) {
-            computeDiaplayWidthAndHeight();
-        }
-        return mDiaplayHeight;
-    }
-
-    private void computeDiaplayWidthAndHeight() {
-        WindowManager mWindowManager = ((ZActivity) getContext())
-                .getWindowManager();
-        Display display = mWindowManager.getDefaultDisplay();
-        mDiaplayWidth = display.getWidth();
-        mDiaplayHeight = display.getHeight();
-    }
 
     /**
      * 完全退出应用<br />

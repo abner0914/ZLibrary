@@ -9,9 +9,9 @@ import java.io.File;
 /**
  * 手机sd卡相关工具类
  */
-public class SDCardUtils {
+public class ZSDCard {
 
-    private SDCardUtils() {
+    private ZSDCard() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }

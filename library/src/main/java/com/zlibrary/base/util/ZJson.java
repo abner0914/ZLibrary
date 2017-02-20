@@ -14,7 +14,7 @@ import java.util.Iterator;
 /**
  * 基于 gson解析 json 工具类
  */
-public class JsonUtils {
+public class ZJson {
     public static final String EMPTY = "";
     /**
      * 空的 {@code JSON} 数据 - <code>"{}"</code>。

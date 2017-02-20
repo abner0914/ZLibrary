@@ -3,7 +3,7 @@ package com.zlibrary.base.util;
 import android.content.ClipboardManager;
 import android.content.Context;
 
-public class ClipboardUtils {
+public class ZClipboard {
     /**
      * 实现文本复制功能
      *

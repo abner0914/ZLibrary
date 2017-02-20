@@ -313,7 +313,7 @@ public class SilentInstaller {
          **/
         StringBuilder command = new StringBuilder().append("LD_LIBRARY_PATH=/vendor/lib:/system/lib pm uninstall")
                 .append(isKeepData ? " -k " : " ").append(packageName.replace(" ", "\\ "));
-        ShellUtils.CommandResult commandResult = ShellUtils.execCommand(command.toString(), !isSystemApplication(context), true);
+        ZShell.CommandResult commandResult = ZShell.execCommand(command.toString(), !isSystemApplication(context), true);
         if (commandResult.successMsg != null
                 && (commandResult.successMsg.contains("Success") || commandResult.successMsg.contains("success"))) {
             return DELETE_SUCCEEDED;
@@ -373,7 +373,7 @@ public class SilentInstaller {
          **/
         StringBuilder command = new StringBuilder().append("LD_LIBRARY_PATH=/vendor/lib:/system/lib pm install ")
                 .append(pmParams == null ? "" : pmParams).append(" ").append(filePath.replace(" ", "\\ "));
-        ShellUtils.CommandResult commandResult = ShellUtils.execCommand(command.toString(),
+        ZShell.CommandResult commandResult = ZShell.execCommand(command.toString(),
                 !isSystemApplication(context), true);
         if (commandResult.successMsg != null
                 && (commandResult.successMsg.contains("Success") || commandResult.successMsg.contains("success"))) {
@@ -501,7 +501,7 @@ public class SilentInstaller {
      * @return APP_INSTALL_AUTO or APP_INSTALL_INTERNAL or APP_INSTALL_EXTERNAL.
      */
     public int getInstallLocation() {
-        ShellUtils.CommandResult commandResult = ShellUtils.execCommand(
+        ZShell.CommandResult commandResult = ZShell.execCommand(
                 "LD_LIBRARY_PATH=/vendor/lib:/system/lib pm get-install-location", false, true);
         if (commandResult.result == 0 && commandResult.successMsg != null && commandResult.successMsg.length() > 0) {
             try {

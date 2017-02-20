@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
 /**
  * 网络工具类
  */
-public class NetWorkUtils {
+public class ZNetWork {
 
     public static final int NETWORK_TYPE_WIFI = 1;
     public static final int NETWORK_TYPE_3G = 3;
@@ -43,7 +43,7 @@ public class NetWorkUtils {
                 return NETWORK_TYPE_WIFI;
             } else if (netType == ConnectivityManager.TYPE_MOBILE) {
                 String proxyHost = android.net.Proxy.getDefaultHost();
-                if (StringUtils.isEmpty(proxyHost)) {
+                if (ZString.isEmpty(proxyHost)) {
                     boolean is3G = isFastMobileNetwork(context);
                     if (is3G) {
                         // 4G网络

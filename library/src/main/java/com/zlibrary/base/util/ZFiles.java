@@ -48,11 +48,11 @@ import java.util.List;
  * <li>{@link #makeDirs(String)}</li>
  * </ul>
  */
-public class FileUtils {
+public class ZFiles {
 
     public final static String FILE_EXTENSION_SEPARATOR = ".";
 
-    private FileUtils() {
+    private ZFiles() {
         throw new AssertionError();
     }
 
@@ -107,7 +107,7 @@ public class FileUtils {
      * @throws RuntimeException if an error occurs while operator FileWriter
      */
     public static boolean writeFile(String filePath, String content, boolean append) {
-        if (StringUtils.isEmpty(content)) {
+        if (ZString.isEmpty(content)) {
             return false;
         }
 
@@ -141,7 +141,7 @@ public class FileUtils {
      * @throws RuntimeException if an error occurs while operator FileWriter
      */
     public static boolean writeFile(String filePath, List<String> contentList, boolean append) {
-        if (ListUtils.isEmpty(contentList)) {
+        if (ZList.isEmpty(contentList)) {
             return false;
         }
 
@@ -346,7 +346,7 @@ public class FileUtils {
      * @see
      */
     public static String getFileNameWithoutExtension(String filePath) {
-        if (StringUtils.isEmpty(filePath)) {
+        if (ZString.isEmpty(filePath)) {
             return filePath;
         }
 
@@ -383,7 +383,7 @@ public class FileUtils {
      * @return file name from path, include suffix
      */
     public static String getFileName(String filePath) {
-        if (StringUtils.isEmpty(filePath)) {
+        if (ZString.isEmpty(filePath)) {
             return filePath;
         }
 
@@ -415,7 +415,7 @@ public class FileUtils {
      */
     public static String getFolderName(String filePath) {
 
-        if (StringUtils.isEmpty(filePath)) {
+        if (ZString.isEmpty(filePath)) {
             return filePath;
         }
 
@@ -446,7 +446,7 @@ public class FileUtils {
      * @return
      */
     public static String getFileExtension(String filePath) {
-        if (StringUtils.isBlank(filePath)) {
+        if (ZString.isBlank(filePath)) {
             return filePath;
         }
 
@@ -472,14 +472,14 @@ public class FileUtils {
      * @return true if the necessary directories have been created or the target directory already exists, false one of
      * the directories can not be created.
      * <ul>
-     * <li>if {@link FileUtils#getFolderName(String)} return null, return false</li>
+     * <li>if {@link ZFiles#getFolderName(String)} return null, return false</li>
      * <li>if target directory already exists, return true</li>
      * <li>return {@link File#makeFolder}</li>
      * </ul>
      */
     public static boolean makeDirs(String filePath) {
         String folderName = getFolderName(filePath);
-        if (StringUtils.isEmpty(folderName)) {
+        if (ZString.isEmpty(folderName)) {
             return false;
         }
 
@@ -488,7 +488,7 @@ public class FileUtils {
 
     private static boolean make(String folderName) {
         File folder = new File(folderName);
-        return (folder.exists() && folder.isDirectory()) ? true : folder.mkdirs();
+        return (folder.exists() && folder.isDirectory()) || folder.mkdirs();
     }
 
     /**
@@ -497,11 +497,11 @@ public class FileUtils {
      * @see #makeDirs(String)
      */
     public static boolean makeFolders(String filePath) {
-        if (StringUtils.isEmpty(filePath)) {
+        if (ZString.isEmpty(filePath)) {
             return false;
         }
         String exten = getFileExtension(filePath);
-        if (StringUtils.isEmpty(exten)) {
+        if (ZString.isEmpty(exten)) {
             return make(filePath);
         } else {
             return makeDirs(filePath);
@@ -515,7 +515,7 @@ public class FileUtils {
      * @return
      */
     public static boolean isFileExist(String filePath) {
-        if (StringUtils.isBlank(filePath)) {
+        if (ZString.isBlank(filePath)) {
             return false;
         }
 
@@ -530,7 +530,7 @@ public class FileUtils {
      * @return
      */
     public static boolean isFolderExist(String directoryPath) {
-        if (StringUtils.isBlank(directoryPath)) {
+        if (ZString.isBlank(directoryPath)) {
             return false;
         }
 
@@ -550,7 +550,7 @@ public class FileUtils {
      * @return
      */
     public static boolean deleteFile(String path) {
-        if (StringUtils.isBlank(path)) {
+        if (ZString.isBlank(path)) {
             return true;
         }
 
@@ -585,7 +585,7 @@ public class FileUtils {
      * @return returns the length of this file in bytes. returns -1 if the file does not exist.
      */
     public static long getFileSize(String path) {
-        if (StringUtils.isBlank(path)) {
+        if (ZString.isBlank(path)) {
             return -1;
         }
 

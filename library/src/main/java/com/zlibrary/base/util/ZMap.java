@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 /**
  * Map 工具类
  */
-public class MapUtils {
+public class ZMap {
 
     /**
      * default separator between key and value
@@ -21,7 +21,7 @@ public class MapUtils {
      **/
     public static final String DEFAULT_KEY_AND_VALUE_PAIR_SEPARATOR = ",";
 
-    private MapUtils() {
+    private ZMap() {
         throw new AssertionError();
     }
 
@@ -54,7 +54,7 @@ public class MapUtils {
      * </ul>
      */
     public static boolean putMapNotEmptyKey(Map<String, String> map, String key, String value) {
-        if (map == null || StringUtils.isEmpty(key)) {
+        if (map == null || ZString.isEmpty(key)) {
             return false;
         }
 
@@ -76,7 +76,7 @@ public class MapUtils {
      * </ul>
      */
     public static boolean putMapNotEmptyKeyAndValue(Map<String, String> map, String key, String value) {
-        if (map == null || StringUtils.isEmpty(key) || StringUtils.isEmpty(value)) {
+        if (map == null || ZString.isEmpty(key) || ZString.isEmpty(value)) {
             return false;
         }
 
@@ -100,11 +100,11 @@ public class MapUtils {
      */
     public static boolean putMapNotEmptyKeyAndValue(Map<String, String> map, String key, String value,
                                                     String defaultValue) {
-        if (map == null || StringUtils.isEmpty(key)) {
+        if (map == null || ZString.isEmpty(key)) {
             return false;
         }
 
-        map.put(key, StringUtils.isEmpty(value) ? defaultValue : value);
+        map.put(key, ZString.isEmpty(value) ? defaultValue : value);
         return true;
     }
 
@@ -173,7 +173,7 @@ public class MapUtils {
         }
 
         for (Entry<K, V> entry : map.entrySet()) {
-            if (ObjectUtils.isEquals(entry.getValue(), value)) {
+            if (ZObject.isEquals(entry.getValue(), value)) {
                 return entry.getKey();
             }
         }
@@ -204,14 +204,14 @@ public class MapUtils {
      */
     public static Map<String, String> parseKeyAndValueToMap(String source, String keyAndValueSeparator,
                                                             String keyAndValuePairSeparator, boolean ignoreSpace) {
-        if (StringUtils.isEmpty(source)) {
+        if (ZString.isEmpty(source)) {
             return null;
         }
 
-        if (StringUtils.isEmpty(keyAndValueSeparator)) {
+        if (ZString.isEmpty(keyAndValueSeparator)) {
             keyAndValueSeparator = DEFAULT_KEY_AND_VALUE_SEPARATOR;
         }
-        if (StringUtils.isEmpty(keyAndValuePairSeparator)) {
+        if (ZString.isEmpty(keyAndValuePairSeparator)) {
             keyAndValuePairSeparator = DEFAULT_KEY_AND_VALUE_PAIR_SEPARATOR;
         }
         Map<String, String> keyAndValueMap = new HashMap<String, String>();
@@ -222,14 +222,14 @@ public class MapUtils {
 
         int seperator;
         for (String valueEntity : keyAndValueArray) {
-            if (!StringUtils.isEmpty(valueEntity)) {
+            if (!ZString.isEmpty(valueEntity)) {
                 seperator = valueEntity.indexOf(keyAndValueSeparator);
                 if (seperator != -1) {
                     if (ignoreSpace) {
-                        MapUtils.putMapNotEmptyKey(keyAndValueMap, valueEntity.substring(0, seperator).trim(),
+                        ZMap.putMapNotEmptyKey(keyAndValueMap, valueEntity.substring(0, seperator).trim(),
                                 valueEntity.substring(seperator + 1).trim());
                     } else {
-                        MapUtils.putMapNotEmptyKey(keyAndValueMap, valueEntity.substring(0, seperator),
+                        ZMap.putMapNotEmptyKey(keyAndValueMap, valueEntity.substring(0, seperator),
                                 valueEntity.substring(seperator + 1));
                     }
                 }
@@ -244,7 +244,7 @@ public class MapUtils {
      * @param source      key-value pairs
      * @param ignoreSpace whether ignore space at the begging or end of key and value
      * @return
-     * @see {@link MapUtils#parseKeyAndValueToMap(String, String, String, boolean)}, keyAndValueSeparator is
+     * @see {@link ZMap#parseKeyAndValueToMap(String, String, String, boolean)}, keyAndValueSeparator is
      * {@link #DEFAULT_KEY_AND_VALUE_SEPARATOR}, keyAndValuePairSeparator is
      * {@link #DEFAULT_KEY_AND_VALUE_PAIR_SEPARATOR}
      */
@@ -258,7 +258,7 @@ public class MapUtils {
      *
      * @param source key-value pairs
      * @return
-     * @see {@link MapUtils#parseKeyAndValueToMap(String, String, String, boolean)}, keyAndValueSeparator is
+     * @see {@link ZMap#parseKeyAndValueToMap(String, String, String, boolean)}, keyAndValueSeparator is
      * {@link #DEFAULT_KEY_AND_VALUE_SEPARATOR}, keyAndValuePairSeparator is
      * {@link #DEFAULT_KEY_AND_VALUE_PAIR_SEPARATOR}, ignoreSpace is true
      */

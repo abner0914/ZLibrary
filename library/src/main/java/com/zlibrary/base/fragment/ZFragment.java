@@ -1,10 +1,9 @@
-package com.zlibrary.base.activity.fragment;
+package com.zlibrary.base.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.View;
 
 import com.zlibrary.base.activity.ZActivity;
 import com.zlibrary.base.dialog.ZProgress;
@@ -15,8 +14,6 @@ import com.zlibrary.base.handler.IZHandlerCallback;
 public abstract class ZFragment extends Fragment implements IZHandlerCallback, OnKeyBackListener {
 
     protected ZActivity mActivity;
-
-    protected View mView;
 
     private ZProgress mProgressDialog;
 

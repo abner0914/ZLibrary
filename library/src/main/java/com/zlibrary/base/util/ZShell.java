@@ -10,26 +10,26 @@ import java.util.List;
  * ShellUtils
  * <ul>
  * <strong>Check root</strong>
- * <li>{@link ShellUtils#checkRootPermission()}</li>
+ * <li>{@link ZShell#checkRootPermission()}</li>
  * </ul>
  * <ul>
  * <strong>Execte command</strong>
- * <li>{@link ShellUtils#execCommand(String, boolean)}</li>
- * <li>{@link ShellUtils#execCommand(String, boolean, boolean)}</li>
- * <li>{@link ShellUtils#execCommand(List, boolean)}</li>
- * <li>{@link ShellUtils#execCommand(List, boolean, boolean)}</li>
- * <li>{@link ShellUtils#execCommand(String[], boolean)}</li>
- * <li>{@link ShellUtils#execCommand(String[], boolean, boolean)}</li>
+ * <li>{@link ZShell#execCommand(String, boolean)}</li>
+ * <li>{@link ZShell#execCommand(String, boolean, boolean)}</li>
+ * <li>{@link ZShell#execCommand(List, boolean)}</li>
+ * <li>{@link ZShell#execCommand(List, boolean, boolean)}</li>
+ * <li>{@link ZShell#execCommand(String[], boolean)}</li>
+ * <li>{@link ZShell#execCommand(String[], boolean, boolean)}</li>
  * </ul>
  */
-public class ShellUtils {
+public class ZShell {
 
     public static final String COMMAND_SU = "su";
     public static final String COMMAND_SH = "sh";
     public static final String COMMAND_EXIT = "exit\n";
     public static final String COMMAND_LINE_END = "\n";
 
-    private ShellUtils() {
+    private ZShell() {
         throw new AssertionError();
     }
 
@@ -48,7 +48,7 @@ public class ShellUtils {
      * @param command command
      * @param isRoot  whether need to run with root
      * @return
-     * @see ShellUtils#execCommand(String[], boolean, boolean)
+     * @see ZShell#execCommand(String[], boolean, boolean)
      */
     public static CommandResult execCommand(String command, boolean isRoot) {
         return execCommand(new String[]{command}, isRoot, true);
@@ -60,7 +60,7 @@ public class ShellUtils {
      * @param commands command list
      * @param isRoot   whether need to run with root
      * @return
-     * @see ShellUtils#execCommand(String[], boolean, boolean)
+     * @see ZShell#execCommand(String[], boolean, boolean)
      */
     public static CommandResult execCommand(List<String> commands, boolean isRoot) {
         return execCommand(commands == null ? null : commands.toArray(new String[]{}), isRoot, true);
@@ -72,7 +72,7 @@ public class ShellUtils {
      * @param commands command array
      * @param isRoot   whether need to run with root
      * @return
-     * @see ShellUtils#execCommand(String[], boolean, boolean)
+     * @see ZShell#execCommand(String[], boolean, boolean)
      */
     public static CommandResult execCommand(String[] commands, boolean isRoot) {
         return execCommand(commands, isRoot, true);
@@ -85,7 +85,7 @@ public class ShellUtils {
      * @param isRoot          whether need to run with root
      * @param isNeedResultMsg whether need result msg
      * @return
-     * @see ShellUtils#execCommand(String[], boolean, boolean)
+     * @see ZShell#execCommand(String[], boolean, boolean)
      */
     public static CommandResult execCommand(String command, boolean isRoot, boolean isNeedResultMsg) {
         return execCommand(new String[]{command}, isRoot, isNeedResultMsg);
@@ -98,7 +98,7 @@ public class ShellUtils {
      * @param isRoot          whether need to run with root
      * @param isNeedResultMsg whether need result msg
      * @return
-     * @see ShellUtils#execCommand(String[], boolean, boolean)
+     * @see ZShell#execCommand(String[], boolean, boolean)
      */
     public static CommandResult execCommand(List<String> commands, boolean isRoot, boolean isNeedResultMsg) {
         return execCommand(commands == null ? null : commands.toArray(new String[]{}), isRoot, isNeedResultMsg);

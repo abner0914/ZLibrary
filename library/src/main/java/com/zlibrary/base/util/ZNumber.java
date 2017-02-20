@@ -3,7 +3,7 @@ package com.zlibrary.base.util;
 /**
  * 数字处理工具类
  */
-public class NumberUtils {
+public class ZNumber {
 
     public static int convertToint(String intStr, int defValue) {
         try {

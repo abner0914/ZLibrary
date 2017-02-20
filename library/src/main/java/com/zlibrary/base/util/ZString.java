@@ -9,9 +9,9 @@ import java.util.regex.Pattern;
 /**
  * 字符串工具类
  */
-public class StringUtils {
+public class ZString {
 
-    private StringUtils() {
+    private ZString() {
         throw new AssertionError();
     }
 
@@ -57,10 +57,10 @@ public class StringUtils {
      * @param actual
      * @param expected
      * @return
-     * @see ObjectUtils#isEquals(Object, Object)
+     * @see ZObject#isEquals(Object, Object)
      */
     public static boolean isEquals(String actual, String expected) {
-        return ObjectUtils.isEquals(actual, expected);
+        return ZObject.isEquals(actual, expected);
     }
 
     /**
@@ -204,7 +204,7 @@ public class StringUtils {
      * @return
      */
     public static String htmlEscapeCharsToString(String source) {
-        return StringUtils.isEmpty(source) ? source : source.replaceAll("&lt;", "<").replaceAll("&gt;", ">")
+        return ZString.isEmpty(source) ? source : source.replaceAll("&lt;", "<").replaceAll("&gt;", ">")
                 .replaceAll("&amp;", "&").replaceAll("&quot;", "\"");
     }
 

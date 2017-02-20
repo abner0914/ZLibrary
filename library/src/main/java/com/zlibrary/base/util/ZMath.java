@@ -19,9 +19,9 @@ package com.zlibrary.base.util;
 /**
  * 计算工具类
  */
-public class MathUtils {
+public class ZMath {
 
-    private MathUtils() {
+    private ZMath() {
     }
 
     public static float constrain(float min, float max, double v) {

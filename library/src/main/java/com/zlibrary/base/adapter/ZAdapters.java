@@ -2,7 +2,7 @@ package com.zlibrary.base.adapter;
 
 import android.content.Context;
 
-import com.zlibrary.base.util.ListUtils;
+import com.zlibrary.base.util.ZList;
 
 import java.util.List;
 
@@ -67,7 +67,7 @@ public final class ZAdapters<T> {
     }
 
     public void addDataIndex(int index, T data) {
-        if (data != null && !ListUtils.isEmpty(mList))
+        if (data != null && !ZList.isEmpty(mList))
             mList.add(index, data);
     }
 
