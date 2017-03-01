@@ -3,6 +3,7 @@ package com.zlibrary.base.util;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.Html;
 import android.view.View;
 
@@ -51,11 +52,12 @@ public class ZDialog {
         return showTips(context, context.getString(title), context.getString(des));
     }
 
-    public static Dialog showTipsWithBtn(Context context, String title, String des) {
-        AlertDialog.Builder builder = ZDialog.dialogBuilder(context, title, des);
-        builder.setPositiveButton("确定", null);
-        builder.setCancelable(true);
-        Dialog dialog = builder.show();
+    public static Dialog showTipsWithBtn(Context context, String title, String des, DialogInterface.OnClickListener Plistener, DialogInterface.OnClickListener Nlistener) {
+        AlertDialog.Builder builder = dialogBuilder(context, title, des);
+        builder.setPositiveButton("确定", Plistener);
+        builder.setNegativeButton("取消", Nlistener);
+        builder.setCancelable(false);
+        AlertDialog dialog = builder.show();
         dialog.setCanceledOnTouchOutside(false);
         return dialog;
     }
