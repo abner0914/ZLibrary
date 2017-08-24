@@ -111,7 +111,7 @@ public class ZWebView extends WebView {
         }
     }
 
-    private WebViewClient getWebViewClient() {
+    public WebViewClient getWebViewClient() {
         if (mWebViewClient == null) {
             mWebViewClient = new ZWebViewClient();
         }
