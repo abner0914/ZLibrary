@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
+import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.zlibrary.base.db.ZDBHelper;
 
@@ -412,10 +413,7 @@ public class ZApplication extends Application {
      * @param tag
      */
     public void initLogger(String tag) {
-        Logger.init(tag)                      // default PRETTYLOGGER or use just init()
-                .methodCount(3)                 // default 2
-                .hideThreadInfo()               // default shown
-                .methodOffset(2);                // default 0
+        Logger.addLogAdapter(new AndroidLogAdapter());
     }
 
 }
